@@ -9,15 +9,24 @@ class Grade extends Model
 {
     use HasFactory;
 
+    
+    protected $fillable = [
+        'name',
+    ];
 
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);//1対1,1対多
+        return $this->hasMany(User::class);//1対多
     }
 
-    public function curriculum()
+    public function curriculums()
     {
-        return $this->belongsTo(Curriculum::class);//1対多
+        return $this->hasMany(Curriculum::class);//1対多
+    }
+
+    public function classesClearChecks()
+    {
+        return $this->hasMany(ClassesClearCheck::class);//1対多
     }
 }

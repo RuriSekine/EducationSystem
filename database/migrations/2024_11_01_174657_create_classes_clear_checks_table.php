@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('classes_clear_checks', function (Blueprint $table) {
-            $table->increments('id',10);
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');/*usersテーブルid紐づけ*/
-            $table->foreignId('grade_id')->constrained()->onDelete('cascade');/*gradesテーブルid紐づけ*/
-            $table->boolean('clear_flg')->default(false);/*curriculum_progressテーブルflagと一緒*/
+            $table->increments('id');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');/*usersテーブルid紐づけ*/
+            $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');/*gradesテーブルid紐づけ*/
+            $table->boolean('clear_flg')->default(false);/*curriculum_progressテーブルflagと関係*/
             $table->timestamps();
         });
     }
