@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('classes_clear_checks', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('users_id');/*カラム定義*/
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');/*usersテーブルid紐づけ*/
+            $table->unsignedInteger('grade_id');/*カラム定義*/
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');/*gradesテーブルid紐づけ*/
             $table->boolean('clear_flg')->default(false);/*curriculum_progressテーブルflagと関係*/
             $table->timestamps();
