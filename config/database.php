@@ -47,8 +47,8 @@ return [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '8889'),
-            'database' => env('DB_DATABASE', 'influencer_education'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'educationsystem'),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', 'root'),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -63,7 +63,7 @@ return [
             ]) : [],
         ],
 
-        
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
@@ -78,8 +78,8 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
-        
-        
+
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
