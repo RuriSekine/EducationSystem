@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('email')->nullable(false);
             $table->string('password')->nullable(false);
             $table->string('profile_image')->nullable(true);
-            $table->integer('grade_id')->length(10)->nullable(false); //長さ10
+            $table->unsignedInteger('grade_id');/*カラム定義*/
+            $table->foreign('grade_id')->references('id')->on('grades');/*gradesテーブルid紐づけ*/
             $table->timestamps();
         });
     }

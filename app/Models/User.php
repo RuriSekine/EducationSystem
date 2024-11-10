@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'name_kana',
         'email',
         'password',
+        'profile_image',
+        'grade_id'
     ];
 
     /**
@@ -41,4 +44,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function classesClearChecks()
+    {
+        return $this->hasMany(ClassesClearCheck::class);//1対多
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);//多対1
+    }
+
+    public function curriculumProgress()
+    {
+        return $this->hasMany(curriculumProgress::class);//1対多
+    }
 }

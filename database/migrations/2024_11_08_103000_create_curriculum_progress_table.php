@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('curriculum_progress', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('curriculumus_id')->nullable(false);
-            $table->integer('users_id')->nullable(false);
-            $table->boolean('clear_flg')->nullable(false);
+            $table->unsignedInteger('curriculums_id');/*カラム定義*/
+            $table->foreign('curriculums_id')->references('id')->on('curriculums')->onDelete('cascade');
+            $table->unsignedInteger('users_id');/*カラム定義*/
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');/*usersテーブルid紐づけ*/
+            $table->boolean('clear_flg')->default(false);
             $table->timestamps();
         });
     }
