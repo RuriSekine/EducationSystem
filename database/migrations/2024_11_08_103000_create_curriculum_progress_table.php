@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('curriculum_progress', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('curriculumus_id')->nullable(false);
             $table->integer('users_id')->nullable(false);
             $table->boolean('clear_flg')->nullable(false);

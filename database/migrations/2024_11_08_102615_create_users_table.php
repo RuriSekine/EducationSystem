@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id()->length(10);//長さ10
+            $table->increments('id');
             $table->string('name')->nullable(false);
             $table->string('name_kana')->nullable(false);
             $table->string('email')->nullable(false);
