@@ -21,7 +21,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->mediumText('video_url')->nullable();
             $table->tinyInteger('alway_delivery_flg');
-            $table->foreignId('grade_id')->constrained('grades')->onDelete('cascade');
+            $table->unsignedInteger('grade_id'); 
+            $table->foreign('grade_id')->references('id')->on('grades');
             $table->timestamps();
         });
     }
