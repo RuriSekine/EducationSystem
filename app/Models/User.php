@@ -19,8 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'name_kana',
         'email',
         'password',
+        'grade_id', // カリキュラム完了時にログインしているユーザーのgrade_idをアップグレードさせるために含めています。
     ];
 
     /**
