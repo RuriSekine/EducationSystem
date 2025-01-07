@@ -40,7 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        'admin' => [             //管理者用ログイン(認証)
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -69,6 +76,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'admins' => [                        //管理用ログイン情報取得
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,  //Adminモデルより
+        ],
     ],
 
     /*
@@ -89,6 +101,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'admins' => [            //管理用ログインパスワードリセット
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -22,7 +22,9 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            if($guard == "admin" && Auth::guard($guard)->check()) {
+                return redirect()->route('admin.show.top');//認証済みの際トップに遷移
+            } elseif (Auth::guard($guard)->check()) {
                 return redirect(RouteServiceProvider::HOME);
             }
         }
