@@ -67,4 +67,8 @@
         <!-- Scripts -->
     @stack('scripts')
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> main

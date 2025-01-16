@@ -54,5 +54,3 @@ Route::get('/delivery/{id}', [App\Http\Controllers\User\DeliveryController::clas
 Route::post('/delivery/{id}/complete', [App\Http\Controllers\User\DeliveryController::class, 'completeCurriculum'])->name('complete.delivery');
 });
 });
-
-//1月6現在のルート

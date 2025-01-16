@@ -13,4 +13,8 @@ protected $casts = [
     'posted_date' => 'datetime',
     // 'posted_date' フィールドを DateTime オブジェクトとして扱うよう指定する。
 ];
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

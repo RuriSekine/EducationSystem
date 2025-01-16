@@ -16,78 +16,114 @@ class DeliveryController extends Controller
 {
     private function getYoutubeEmbedUrl($url) //YoutubeのURLを埋め込み用に変換するための処理
     {
-        $videoId = explode("v=", $url)[1];
+        // URLが有効かどうかをチェック
+        if (!filter_var($url, FILTER_VALIDATE_URL)){
+            return null; //無効なURLの場合はnullを返す。
+        }
+
+        // URLのホストがYouTubeかどうかをチェック
+        $host = parse_url($url, PHP_URL_HOST);
+        if (!in_array($host, ['www.youtube.com', 'youtube.com', 'youtu.be'])) { //https://の後の確認
+            return null; //YouTubeのURLでない場合はnullを返す
+        }
+
+        //動画IDを抽出
+        $videoId = null;
+        if ($host === 'youtu.be') {
+            $videoId = trim(parse_url($url, PHP_URL_PATH), '/');
+        } else {
+            parse_str(parse_url($url, PHP_URL_QUERY), $params); //parse_str()でクエリ文字列をパースし、パラメータを連想配列$paramsに格納
+            $videoId = $params['v'] ?? null; //'v'パラメータの値（動画ID）を取得
+        }
+
+        // 動画IDを抽出したが見つからない、または11文字でない場合はnullを返す→※YouTubeの動画IDは常に11文字である
+        if (!$videoId || strlen($videoId) !== 11){
+            return null;
+        }
+
         return "https://www.youtube.com/embed/". $videoId;
     }
 
     public function index($id)
     {
         $curriculum = Curriculum::with('grade')->findOrFail($id); //学年に応じた動画・タイトル・詳細を取得する処理
-
         $embedUrl = $this->getYoutubeEmbedUrl($curriculum->video_url); // 既存: YouTube埋め込みURLの生成
-
         $deliveryTime = DeliveryTime::where('curriculums_id', $curriculum->id)->first(); // カリキュラムIDに基づいて、DeliveryTimeテーブルから対応するレコードを取得
 
-        $isWithinDeliveryPeriod = false; // 配信期間内かどうかを示すフラグを初期化（デフォルトはfalse）
-        //falseにしておくことで不適切なタイミングでコンテンツが表示されることを防ぐセーフガードとして機能
+        $isWithinDeliveryPeriod = $this->checkDeliveryPeriod($deliveryTime);
 
-        // DeliveryTimeレコードが存在する場合のみ以下の処理を行う
-        if ($deliveryTime) {
-            $now = Carbon::now();// 現在の日時を取得
-            $isWithinDeliveryPeriod = $now->between(
-                // 現在の日時が配信開始日と終了日の間にあるかをチェック
-                Carbon::parse($deliveryTime->delivery_from),// 配信開始日をCarbonオブジェクトに変換
-                Carbon::parse($deliveryTime->delivery_to) // 配信終了日をCarbonオブジェクトに変換
-            );
+        $user = Auth::user();
+        $curriculumProgress = $this->getCurriculumProgress($user->id, $curriculum->id);
+        $isClearFlag = $this->isClear($curriculumProgress);
+
+        if ($isClearFlag){
+            $this->checkAndUpdateGrade($user, $curriculum->grade_id);
         }
 
-        $user = Auth::user(); //ログインユーザーの情報を取得
+        return view('user.delivery', compact('curriculum', 'embedUrl','isWithinDeliveryPeriod', 'isClearFlag'));
+    }
 
-        // 追加: ユーザーの受講状況を取得
-        $curriculumProgress = CurriculumProgress::where('users_id', $user->id)
-                                                    ->where('curriculums_id', $curriculum->id)
-                                                    ->first();
 
-        $isClearFlag = false; //ユーザーの受講状況（該当の授業のclear_flg）をチェック
-        if ($curriculumProgress && $curriculumProgress->clear_flg) {
-            $isClearFlag = true;
-
-            $this->checkAndUpdateGrade($user, $curriculum->grade_id); // 全ての授業が完了しているかチェック
+        private function getCurriculumProgress($userId, $curriculumId)
+        {
+            return CurriculumProgress::where('users_id', $userId)
+                                        ->where('curriculums_id', $curriculumId)
+                                        ->first();
         }
-        return view('user.delivery', compact('curriculum', 'embedUrl','isWithinDeliveryPeriod','isClearFlag'));
+
+        private function isClear($curriculumProgress)
+        {
+            return $curriculumProgress && $curriculumProgress->clear_flg;
+        }
+
+        private function checkDeliveryPeriod($deliveryTime)
+        {
+            if (!$deliveryTime) {
+                return false;
+            }
+        
+
+        $now = Carbon::now();
+        return $now->between(
+            Carbon::parse($deliveryTime->delivery_from),
+            Carbon::parse($deliveryTime->delivery_to)
+        );
     }
 
     private function checkAndUpdateGrade($user, $currentGradeId)
     {
-        $nextGradeId = $currentGradeId;
+        $nextGradeId = $this->determineNextGrade($user, $currentGradeId);
 
-        while ($nextGradeId < 12){ //最大学年（高校3年生）までチェック
-        //現在の学年のすべての授業を取得
-        $curriculums = Curriculum::where('grade_id', $currentGradeId)->get();
+        if ($nextGradeId != $user->grade_id && $nextGradeId <= 12){
+            $user->updateGrade($nextGradeId);
+        }
+    }
+
+    // 次の学年を決定するメソッド
+    private function determineNextGrade($user, $currentGradeId){
+        $nextGradeId = $currentGradeId;
+        while ($nextGradeId < 12 && $this->isGradeCompleted($user, $nextGradeId))
+        {
+            $nextGradeId++;
+        }
+        return $nextGradeId;
+    }
+
+    //特定の学年のカリキュラムが全て完了しているかチェックするメソッド
+    private function isGradeCompleted($user, $gradeId)
+    {
+        $curriculums = Curriculum::where('grade_id', $gradeId)->get();
 
         // 全ての授業が完了しているかチェック
-        $allCompleted = $curriculums->every(function ($curriculum) use ($user){
+        return $curriculums->every(function ($curriculum) use ($user){
             return CurriculumProgress::where('users_id', $user->id)
                                     ->where('curriculums_id', $curriculum->id)
                                     ->where('clear_flg', true)
                                     ->exists();
         });
-
-        // 全ての授業が完了していない場合はループを抜ける。
-        if ($allCompleted) {
-            break;
-        }
-        $nextGradeId++;
     }
-
-    // 学年が更新される場合のみ保存
-    if ($nextGradeId != $user->grade_id && $nextGradeId <= 12) {
-        $user->grade_id = $nextGradeId;
-        $user->save();
-        }
-    }
-
-        public function completeCurriculum(Request $request, $id)
+        
+    public function completeCurriculum(Request $request, $id)
         {
             try{
             $user = Auth::user(); // ログインしているユーザーの情報を取得
