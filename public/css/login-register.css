@@ -1,0 +1,27 @@
+.register-link{
+    margin-left: 1000px;
+    color: black;
+    text-decoration: none;
+    margin-top: 100px;
+}
+
+.login-link{
+    margin-left: 1000px;
+    color: black;
+    text-decoration: none;
+    margin-top: 100px;
+}
+
+.btn-primary{
+    background-color:#F26B4A;
+    color: aliceblue;
+    border-color: #D3644B;
+    margin-top: 20px;
+    margin-left: 45px;
+    cursor: pointer;
+}
+
+  .card-body {
+    display: grid;
+    place-items: center;
+  }

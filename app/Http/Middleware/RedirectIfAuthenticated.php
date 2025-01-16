@@ -22,8 +22,15 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+            if ($guard == "admin" && Auth::guard($guard)->check()) {
+                return redirect('admin/top');
+            }
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return redirect('/user/top');
+                // RedirectIfAuthenticated ミドルウェアは、既にログインしているユーザーが
+                // ログインページやレジストレーションページにアクセスしようとした際に
+                // リダイレクトさせる役割を持っています。
+                // return redirect(RouteServiceProvider::HOME);
             }
         }
 

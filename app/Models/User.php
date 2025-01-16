@@ -19,8 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'name_kana',
         'email',
         'password',
+        'grade_id', // カリキュラム完了時にログインしているユーザーのgrade_idをアップグレードさせるために含めています。
     ];
 
     /**
@@ -41,4 +43,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function updateGrade($newGradeId)
+    {
+        $this->grade_id = $newGradeId;
+        $this->save();
+    }
 }

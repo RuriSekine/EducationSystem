@@ -1,0 +1,63 @@
+.clear-button{
+    font-size: large;
+    width: 20em;
+    height:5em;
+    background-color: #F26B4A;
+    color: #FFFBFB;
+    border-color: #DCD4D1;
+    border-radius: 20px;
+    margin-left: 300px;
+    cursor: pointer;
+}
+
+.notcheck-button{
+    font-size: large;
+    width: 20em;
+    height:5em;
+    background-color: #F26B4A;
+    color: #FFFBFB;
+    border-color: #DCD4D1;
+    border-radius: 20px;
+    margin-left: 600px;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.attended-button{
+    font-size: large;
+    width: 20em;
+    height:5em;
+    background-color: #6e6e6e;
+    color: #FFFBFB;
+    border-color: #DCD4D1;
+    border-radius: 20px;
+    margin-left: 300px;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.grade{
+    margin-top: 20px;
+    color: #f0f0f0;
+    background-color: #3300ff;
+    display: inline-block;
+    width: auto;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    }
+
+.video-erea{
+    display: flex;
+    align-items: center;
+}
+
+.alert-success{
+    color: rgb(31, 12, 209);
+    font-weight: 200;
+}
+
+.alert-danger{
+    color: #ea0000;
+    font-weight: 200;
+}
