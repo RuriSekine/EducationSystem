@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Log;
+
 class RegisterController extends Controller
 {
 
@@ -54,7 +56,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'name_kana' => ['required', 'string', 'max:255', 'regex:/^[ァ-ヶー]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'regex:/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};:\'"|,.<>?]*$/', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], $this->messages());
     }
 
@@ -92,16 +94,23 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        // リクエストデータをログに記録（パスワード情報は除外）
+        Log::info('Registration attempt', ['data' => $request->except('password', 'password_confirmation')]);
         $validator =  $this->validator($request->all());
 
         if ($validator->fails()) {
+            Log::warning('Validation failed', ['errors' => $validator->errors()->toArray()]);
             return redirect()->back()
                             ->withErrors($validator)
                             ->withInput();
         }
+        // バリデーション成功をログに記録
+        Log::info('Validation passed, creating user');
 
         event(new Registered($user = $this->create($request->all())));
 
+        // ユーザー作成成功をログに記録
+        Log::info('User created', ['user_id' => $user->id]);
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
     }

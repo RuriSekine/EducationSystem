@@ -44,7 +44,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function updateGrade($newGradeId)
+    public function updateGrade($newGradeId) //ModelにupdateGrade追加済み
     {
         $this->grade_id = $newGradeId;
         $this->save();

@@ -20,7 +20,7 @@
         <div class = "swiper-wrapper">
             @foreach($banners as $banner)
                 <div class = "swiper-slide">
-                    <img src = "{{ asset('storage/' . $banner->image) }}" alt = "Slide Image">
+                    <img class = "banner" src = "{{ asset('storage/' . $banner->image) }}" alt = "Slide Image">
                 </div>
             @endforeach
         </div>

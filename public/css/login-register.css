@@ -25,3 +25,7 @@
     display: grid;
     place-items: center;
   }
+
+  .errormessage{
+    color: #ff2f00;
+  }

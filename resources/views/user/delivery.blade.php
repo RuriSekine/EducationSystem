@@ -21,8 +21,8 @@
 
 <div class = "video-content">
                 <div class = "video-erea">
-                @if($curriculum->alway_delivery_flg == 1)
-                    <!-- 条件: 常時公開設定ならば、公開期間にかかわらず動画を表示。 -->
+                @if($curriculum->alway_delivery_flg == 1 || $isWithinDeliveryPeriod)
+                    <!-- 条件: 常時公開設定または、公開期間内ならば動画を表示。 -->
                     <iframe width="640" height="360"src="{{ $embedUrl }}" frameborder="0" allowfullscreen></iframe>
                     @if($isClearFlag) <!-- 修正: $isClearFlagに基づいてボタンの表示を切り替え -->
                     <button class = "attended-button" disabled>受講済み</button>

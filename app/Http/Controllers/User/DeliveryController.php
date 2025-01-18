@@ -44,7 +44,7 @@ class DeliveryController extends Controller
         return "https://www.youtube.com/embed/". $videoId;
     }
 
-    public function index($id)
+    public function index($id)//Youtubeのリンク判別の処理を追加済み
     {
         $curriculum = Curriculum::with('grade')->findOrFail($id); //学年に応じた動画・タイトル・詳細を取得する処理
         $embedUrl = $this->getYoutubeEmbedUrl($curriculum->video_url); // 既存: YouTube埋め込みURLの生成
