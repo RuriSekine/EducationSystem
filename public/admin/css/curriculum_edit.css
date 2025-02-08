@@ -1,0 +1,111 @@
+/* =======================
+   編集画面のスタイル
+======================= */
+
+/* フォーム全体 */
+.form-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* 入力フォームグループ */
+.form-group {
+    display: flex;
+    align-items: flex-start; /* 上揃え */
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    flex: 0 0 150px; /* ラベルの固定幅 */
+    font-weight: bold;
+    text-align: left;
+    margin-right: 10px;
+}
+
+/* 入力フィールド */
+.form-group .input-wrapper {
+    flex: 1;
+    position: relative; /* エラーメッセージの配置調整 */
+}
+
+.form-group .input-wrapper input,
+.form-group .input-wrapper select,
+.form-group .input-wrapper textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-group .input-wrapper textarea {
+    resize: vertical;
+    height: 120px;
+}
+
+.form-group .input-wrapper input[type="file"] {
+    padding: 3px;
+}
+
+/* サムネイルプレビュー */
+#thumbnail-preview {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#thumbnail-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+/* エラーメッセージ */
+.form-group .input-wrapper .error-message {
+    margin-top: 5px;
+    color: red;
+    font-size: 12px;
+    display: block;
+}
+
+/* チェックボックス */
+.form-group.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* 更新ボタン */
+.form-group button {
+    display: block;
+    width: auto;
+    padding: 12px 50px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto; /* 中央揃え */
+}
+
+.form-group button:hover {
+    background-color: #0056b3;
+}

@@ -17,7 +17,7 @@ return new class extends Migration
         {
             $table->increments('id');
             $table->string('title');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->longText('description')->nullable();
             $table->mediumText('video_url')->nullable();
             $table->tinyInteger('alway_delivery_flg');

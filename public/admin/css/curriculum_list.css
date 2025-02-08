@@ -1,0 +1,235 @@
+/* =======================
+   レイアウト関連
+======================= */
+
+/* 親コンテナ */
+.list-container {
+    display: flex;
+    align-items: flex-start; /* 左右のアイテムを上揃え */
+    gap: 20px; /* 左右のパネル間のスペース */
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* 左パネル（学年ボタンエリア） */
+.left-panel {
+    flex: 0 0 200px; /* 固定幅 */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 新規登録ボタンと選択された学年ボタン */
+.selected-grades-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* 新規登録ボタン */
+.selected-grades-section .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    width: auto;
+    display: inline-block;
+}
+
+.selected-grades-section .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* 選択された学年ボタン */
+#selected-grade-placeholder {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+/* 選択された学年ボタン（学年ごとに色分け） */
+#selected-grade-placeholder .filter-btn {
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#selected-grade-placeholder .filter-btn[data-grade*="小学校"] {
+    background-color: #87cefa; /* 水色 */
+}
+
+#selected-grade-placeholder .filter-btn[data-grade*="中学校"] {
+    background-color: #a2d9ce; /* 薄黄緑 */
+}
+
+#selected-grade-placeholder .filter-btn[data-grade*="高校"] {
+    background-color: #90ee90; /* 黄緑色 */
+}
+
+/* 学年ボタンセクション */
+.grade-buttons-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 学年ボタン（学年ごとに色分け） */
+.grade-buttons-section .filter-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.grade-buttons-section .filter-btn[data-grade*="小学校"] {
+    background-color: #87cefa;
+}
+
+.grade-buttons-section .filter-btn[data-grade*="中学校"] {
+    background-color: #a2d9ce;
+}
+
+.grade-buttons-section .filter-btn[data-grade*="高校"] {
+    background-color: #90ee90;
+}
+
+.grade-buttons-section .filter-btn:hover {
+    opacity: 0.8;
+}
+
+/* 右パネル（授業一覧） */
+.right-panel {
+    flex: 1;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+/* 学年ごとのセクション */
+.grade-section {
+    margin-bottom: 30px;
+}
+
+.grade-section h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* カリキュラムのグリッド */
+.curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* 授業リストアイテム */
+.list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* サムネイル画像 */
+.list-item img.thumbnail {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* サムネイルなしのプレースホルダー */
+.no-image {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #666;
+}
+
+/* 授業タイトル */
+.list-item .title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* 授業スケジュール */
+.list-item .schedule {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* ボタンセクション */
+.list-item .actions {
+    display: flex;
+    gap: 10px;
+}
+
+.list-item .actions a {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #fff;
+}
+
+/* 編集ボタン */
+.list-item .actions .btn-edit {
+    background-color: #28a745;
+}
+
+.list-item .actions .btn-edit:hover {
+    background-color: #218838;
+}
+
+/* 配信日時編集ボタン */
+.list-item .actions .btn-delivery {
+    background-color: #17a2b8;
+}
+
+.list-item .actions .btn-delivery:hover {
+    background-color: #138496;
+}
+
+/* 配信日時編集ボタン（無効状態） */
+.list-item .actions .btn-delivery.disabled {
+    background-color: #ccc;
+    pointer-events: none;
+}
