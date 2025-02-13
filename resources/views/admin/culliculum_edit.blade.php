@@ -93,7 +93,7 @@
         {{-- 常時公開チェックボックス --}}
         <div class="form-group checkbox-group">
             <label for="always_delivery">
-                <input type="checkbox" name="always_delivery" id="always_delivery" value="1" {{ old('always_delivery', $curriculum->always_delivery) ? 'checked' : '' }}>
+                <input type="checkbox" name="always_delivery" id="always_delivery" value="1" {{ old('always_delivery', $curriculum->alway_delivery_flg) == 1 ? 'checked' : '' }}>
                 常時公開
             </label>
             @error('always_delivery')
