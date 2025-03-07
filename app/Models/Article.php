@@ -8,10 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'title',
-        'posted_date',
-        'article_contents'
-    ];
+protected $casts = [
+    'posted_date' => 'datetime',
+    // 'posted_date' フィールドを DateTime オブジェクトとして扱うよう指定する。
+];
 }

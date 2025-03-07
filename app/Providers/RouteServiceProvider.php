@@ -17,8 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
-
+    public const HOME = '/user/top';
+    // HOME 定数は、認証後のデフォルトリダイレクト先を定義
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      *

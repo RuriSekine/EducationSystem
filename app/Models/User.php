@@ -22,8 +22,7 @@ class User extends Authenticatable
         'name_kana',
         'email',
         'password',
-        'profile_image',
-        'grade_id'
+        'grade_id', // カリキュラム完了時にログインしているユーザーのgrade_idをアップグレードさせるために含めています。
     ];
 
     /**
@@ -45,18 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function classesClearChecks()
+    public function updateGrade($newGradeId) //ModelにupdateGrade追加済み
     {
-        return $this->hasMany(ClassesClearCheck::class);//1対多
-    }
-
-    public function grade()
-    {
-        return $this->belongsTo(Grade::class);//多対1
-    }
-
-    public function curriculumProgress()
-    {
-        return $this->hasMany(curriculumProgress::class);//1対多
+        $this->grade_id = $newGradeId;
+        $this->save();
     }
 }

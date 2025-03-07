@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('image')->nullable();/*バナー画像のファイル名*/
+            $table->string('image')->nullable(false);/*バナー画像のファイル名*/
             $table->timestamps();
         });
     }

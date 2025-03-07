@@ -15,18 +15,16 @@ return new class extends Migration
     {
         Schema::create('delivery_times', function (Blueprint $table) {
             $table->increments('id'); // ID
-            $table->unsignedInteger('curriculums_id'); // カリキュラムID（curriculumsテーブルのidと紐づく）
-            $table->dateTime('delivery_from'); // 公開開始日
-            $table->dateTime('delivery_to'); // 公開終了日
+            $table->unsignedInteger('curriculums_id')->nullable(false); // カリキュラムID（curriculumsテーブルのidと紐づく）
+            $table->dateTime('delivery_from')->nullable(false); // 公開開始日
+            $table->dateTime('delivery_to')->nullable(false); // 公開終了日
             $table->timestamps();
-    
             // リレーションを組むための外部キー制約
             $table->foreign('curriculums_id')->references('id')->on('curriculums')
                   ->onDelete('cascade'); // curriculumsのidが削除されたら、関連するdelivery_timesも削除
         });
     }
-    
-
+  
     /**
      * Reverse the migrations.
      *

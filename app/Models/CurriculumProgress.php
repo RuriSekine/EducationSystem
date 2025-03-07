@@ -7,15 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class CurriculumProgress extends Model
 {
-    use HasFactory;
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);//多対1
-    }
-
-    public function curriculum()
-    {
-        return $this->belongsTo(User::class);//多対1
-    }
+    protected $fillable = ['users_id', 'curriculums_id', 'clear_flg'];
 }
