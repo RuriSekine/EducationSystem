@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         if (Auth::guard('user')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('user.edit.profile'); // ユーザー用ダッシュボードへリダイレクト
+            return redirect()->route('user.top.index'); // ユーザー用ダッシュボードへリダイレクト
         }
 
         return back()->withErrors([

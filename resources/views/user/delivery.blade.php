@@ -63,7 +63,7 @@
 
     <!-- 戻るボタン -->
     <div class="mt-3">
-        <a href="{{ url()->previous() }}" class="btn btn-secondary">戻る</a>
+        <a href="{{ route('user.show.progress') }}" class="btn btn-secondary">戻る</a>
     </div>
 </div>
 @endsection

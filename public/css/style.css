@@ -1,88 +1,51 @@
-/* 全体のスタイル */
-body {
-    background-color: #1f1f1f;
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
+/* テーブル全体 */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
 }
 
-/* カードスタイル */
-.card {
-    background-color: #ddf012;
-    border: none;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
+/* テーブルの見出し */
+thead {
+    background-color: #6a9eaf; /* 穏やかな青 */
+    color: white;
 }
 
-/* 見出し */
-h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #ff8c00;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-}
-
-/* フォームのスタイル */
-.form-control {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+th {
+    font-size: 1.1rem;
     padding: 10px;
+    text-align: center;
 }
 
-.form-label {
-    color: #ff8c00;
+/* テーブルデータ */
+td {
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
 }
 
-/* ボタンのスタイル */
-button {
-    border-radius: 8px;
-    padding: 10px 20px;
-    transition: all 0.3s;
-    font-weight: 500;
+/* リンクのボタン */
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
 }
 
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
 }
 
-.btn-primary {
-    background-color: #000dff;
-    border: none;
-    color: #fff;
+/* 行の境界線 */
+table, th, td {
+    border: 1px solid #ddd;
 }
 
-.btn-secondary {
-    background-color: #555;
-    border: none;
-    color: #fff;
-}
-
-.btn-outline-dark {
-    border: 1px solid #888;
-    color: #888;
-    background: transparent;
-}
-
-/* 右上のボタン配置 */
-.top-right-buttons {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-/* ホバーエフェクト */
-.btn-secondary:hover,
-.btn-outline-dark:hover,
-.btn-primary:hover {
-    background-color: #ff6500;
-    color: #fff;
+/* ゼロ余白で調整 */
+.container {
+    padding: 0 15px;
 }

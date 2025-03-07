@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 @endpush
 

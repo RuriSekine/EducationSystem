@@ -1,59 +1,69 @@
 /* 全体のスタイル */
 body {
-  background-color: #007bff; /* 青色背景 */
-  color: #fff;
+  background-color: #a8d0e6; /* 穏やかな青色 */
+  color: #333; /* 黒に近いグレー */
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 上寄せ */
+  height: 100vh; /* ビューポートの高さに合わせる */
+  padding-top: 50px; /* 上部に余白 */
 }
 
 /* コンテナ */
 .container {
-  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 上寄せ */
+  width: 100%;
 }
 
 /* カードのスタイル */
 .card {
-  background-color: #2c2c2c;
-  border: none;
-  border-radius: 16px;
+  width: 140%;
+  max-width: 1300px;
+  margin: 0 auto;
   padding: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: #f8f9fa;
+  border-radius: 10px;
 }
 
 /* 見出し */
 h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #ff8c00;
+  color: #4b86b4; /* 穏やかな青 */
   margin-bottom: 20px;
 }
 
 /* フォームラベル */
 label {
-  color: #ff8c00;
+  color: #6b7b8c; /* 穏やかなグレー */
   font-size: 1rem;
 }
 
 /* 入力フィールド */
 .form-control {
-  background-color: #333;
+  background-color: #fbfffe;
   color: #fff;
   border-radius: 8px;
   padding: 10px;
   border: none;
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+  width: 80%;
 }
 
 /* エラーメッセージ */
 .invalid-feedback {
   font-size: 0.9rem;
-  color: #ff0000;
+  color: #f44336; /* 穏やかな赤色 */
 }
 
 /* ボタン */
 button.btn-primary {
-  background-color: #ff8c00;
+  background-color: #6c9eeb; /* 穏やかな青 */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -64,12 +74,12 @@ button.btn-primary {
 }
 
 button.btn-primary:hover {
-  background-color: #ff6500;
+  background-color: #5a8cd4; /* 少し暗くなる青 */
 }
 
 /* ログインリンク */
 .login-link {
-  color: #ff8c00;
+  color: #4b86b4; /* 見出しと同じ穏やかな青 */
   font-size: 1rem;
   text-decoration: none;
   margin-top: 10px;
