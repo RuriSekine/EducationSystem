@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('user.register') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -23,6 +23,17 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name_kana" class="form-label">フリガナ</label>
+                            <input id="name_kana" type="text" class="form-control @error('name_kana') is-invalid @enderror" name="name_kana" value="{{ old('name_kana') }}" required autocomplete="name_kana" autofocus>
+                            
+                            @error('name_kana')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="row mb-3">

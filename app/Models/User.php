@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_image',
-        'grade_id'
+        'grade_id',
     ];
 
     /**
@@ -36,6 +36,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $attributes = [
+        'grade_id' => 1, // デフォルトで小学1年生を指定
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -45,18 +49,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function classesClearChecks()
+    public function updateGrade($newGradeId) //ModelにupdateGrade追加済み
     {
-        return $this->hasMany(ClassesClearCheck::class);//1対多
+        $this->grade_id = $newGradeId;
+        $this->save();
+    }
+
+    // 進捗とのリレーション（1対多）
+    public function progresses()
+    {
+        return $this->hasMany(CurriculumProgress::class);
     }
 
     public function grade()
     {
-        return $this->belongsTo(Grade::class);//多対1
-    }
-
-    public function curriculumProgress()
-    {
-        return $this->hasMany(curriculumProgress::class);//1対多
+        return $this->belongsTo(Grade::class);
     }
 }
