@@ -64,13 +64,11 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
     Route::get('/register', [AdminRegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [AdminRegisterController::class, 'register'])->name('register.post');
-    // 記事の一覧表示
-    Route::get('/article', [AdminArticleController::class, 'index'])->name('articles.index');
-
     Route::middleware(['auth:admin'])->group(function () {
         Route::get('/curriculum/create', [AdminCurriculumController::class, 'create'])->name('curriculum.create');
         Route::post('/curriculum/store', [AdminCurriculumController::class, 'store'])->name('curriculum.store');
-        
+        // 記事の一覧表示
+        Route::get('/article', [AdminArticleController::class, 'index'])->name('articles.index');
         // 記事作成/編集
         Route::get('/article/edit/{id?}', [AdminArticleController::class, 'edit'])->name('article.edit');
         // 記事の保存 (新規作成と更新)
