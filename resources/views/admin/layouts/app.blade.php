@@ -40,10 +40,7 @@
                         <!-- 非ログイン時（ログインボタン表示） -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('admin.login') }}">{{ __('ログイン') }}</a>
                             </li>
                         @endguest
 
@@ -55,12 +52,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('user.logout') }}"
+                                    <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('ログアウト') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>

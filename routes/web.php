@@ -32,14 +32,6 @@ Route::get('/', function () {
         return redirect()->route('user.login');
 });
 
-/*
-//bannerの画像が表示されるか確認するために担当ではないですが一応設定をおこなっています。
-Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
-    Route::get('/banner_edit', [App\Http\Controllers\Admin\BannerController::class, 'index'])->name('show.banner.edit');
-    Route::post('banner_store',[App\Http\Controllers\Admin\BannerController::class, 'store'])->name('store.banner');
-    });
-*/
-
 Route::prefix('user')->namespace('User')->name('user.')->group(function () {
 Route::get('/login', [UserLoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login',[UserLoginController::class, 'login'])->name('login.post');
@@ -72,12 +64,13 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
     Route::get('/register', [AdminRegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [AdminRegisterController::class, 'register'])->name('register.post');
+    // 記事の一覧表示
+    Route::get('/article', [AdminArticleController::class, 'index'])->name('articles.index');
 
     Route::middleware(['auth:admin'])->group(function () {
         Route::get('/curriculum/create', [AdminCurriculumController::class, 'create'])->name('curriculum.create');
         Route::post('/curriculum/store', [AdminCurriculumController::class, 'store'])->name('curriculum.store');
-        // 記事の一覧表示
-        Route::get('/article', [AdminArticleController::class, 'index'])->name('articles.index');
+        
         // 記事作成/編集
         Route::get('/article/edit/{id?}', [AdminArticleController::class, 'edit'])->name('article.edit');
         // 記事の保存 (新規作成と更新)
