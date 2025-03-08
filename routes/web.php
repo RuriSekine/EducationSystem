@@ -46,15 +46,13 @@ Route::post('/login',[UserLoginController::class, 'login'])->name('login.post');
 Route::post('/logout',[UserLoginController::class, 'logout'])->name('logout');
 Route::get('/register', [UserRegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register',[UserRegisterController::class, 'register'])->name('register.post');
-//Route::get('/top', [App\Http\Controllers\User\TopController::class, 'index'])->name('show.top');
-
+Route::get('/top', [UserArticleController::class, 'index'])->name('top.index');
 
 Route::middleware(['auth:user'])->group(function () {
 // 記事・カリキュラム・進捗画面
 Route::get('/curriculum_list', [UserCurriculumController::class, 'index'])->name('show.curriculum');
 Route::get('/progress', [App\Http\Controllers\User\ProgressController::class, 'index'])->name('show.progress');
 Route::get('/article/{id}', [UserArticleController::class, 'show'])->name('show.article');
-Route::get('/top', [UserArticleController::class, 'index'])->name('top.index');
 
 Route::get('/curriculum/{id}', [DeliveryController::class, 'show'])->name('show.curriculum');
 Route::post('/curriculum/{id}/complete', [DeliveryController::class, 'complete'])->name('curriculum.complete');
