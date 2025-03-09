@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container">
+    <a href="{{ route('user.top.index') }}" class="btn btn-outline-primary mt-3">
+        戻る
+    </a>
     <!-- アイコン画像の表示 -->
     <div class="mb-3 text-center">
         @if ($user->profile_image)

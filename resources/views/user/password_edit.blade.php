@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container">
+    <a href="{{ route('user.edit.profile') }}" class="btn btn-outline-primary mt-3">
+        戻る
+    </a>
     <h2>パスワード変更</h2>
 
     @if ($errors->any())

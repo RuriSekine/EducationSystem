@@ -31,7 +31,7 @@
                 <header class="collapse navbar-collapse" id="navbarSupportedContent">
                     @if(!Route::is('user.login') && !Route::is('user.register'))
                     <ul class = "userheader-content">
-                        @auth
+                        @auth('user')
                         <!-- {{-- 時間割・授業進捗・プロフィール設定への各種画面への遷移させるためのボタン --}} -->
                             <button class="userheader-button" onclick="location.href='{{ route('user.show.curriculum', ['id' => 1]) }}'">時間割</button>
                             @if(isset($curriculum))
@@ -69,6 +69,6 @@
         </main>
     </div>
         <!-- Scripts -->
-    @stack('scripts')
+    @stack('script')
 </body>
 </html>

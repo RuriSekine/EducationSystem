@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container py-5" style="background-color: #f8f9fa; border-radius: 10px;">
+    <a href="{{ route('user.top.index') }}" class="btn btn-outline-primary mt-3">
+        戻る
+    </a>
     <h2 class="text-center text-primary">プロフィール編集</h2>
 
     <!-- 成功メッセージ -->
