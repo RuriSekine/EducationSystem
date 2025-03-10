@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Curriculum;
 use App\Models\CurriculumProgress;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class DeliveryController extends Controller
 {
@@ -17,13 +19,26 @@ class DeliveryController extends Controller
         $curriculum = Curriculum::findOrFail($id);
         $user = Auth::user();
 
-        // 受講済みかどうかを取得
-        $isCompleted = CurriculumProgress::where('curriculums_id', $id)
-                            ->where('users_id', $user->id)
-                            ->where('clear_flg', true)
-                            ->exists();
+        // モデルのメソッドを利用して受講済みかを確認
+        $isCompleted = CurriculumProgress::isCompleted($id, $user->id);
 
-        return view('user.delivery', compact('curriculum', 'isCompleted'));
+        // 動画URLの処理
+        $videoUrl = $curriculum->video_url;
+        if ($videoUrl) {
+        // YouTube用の埋め込みURLに変換
+        if (strpos($videoUrl, 'youtube.com/watch?v=') !== false) {
+            $videoId = explode('v=', $videoUrl)[1];
+            $videoUrl = "https://www.youtube.com/embed/" . $videoId;
+        }
+    
+        // ニコニコ動画用の埋め込みURLに変換
+        if (strpos($videoUrl, 'nicovideo.jp/watch/') !== false) {
+            $videoId = basename(parse_url($videoUrl, PHP_URL_PATH));
+            $videoUrl = "https://embed.nicovideo.jp/watch/" . $videoId;
+        }
+    }
+
+        return view('user.delivery', compact('curriculum', 'isCompleted', 'videoUrl'));
     }
 
     /**
@@ -33,13 +48,15 @@ class DeliveryController extends Controller
     {
         $user = Auth::user();
 
-        // 受講状況を更新または作成
-        CurriculumProgress::updateOrCreate(
-            ['curriculums_id' => $id, 'users_id' => $user->id],
-            ['clear_flg' => true]
-        );
-
-        return redirect()->route('user.show.curriculum', $id)
-                         ->with('success', '受講が完了しました。');
+        try {
+            // トランザクション付きのメソッドを利用
+            if (CurriculumProgress::completeCurriculum($id, $user->id)) {
+                return redirect()->route('user.show.curriculum', $id)
+                                 ->with('success', '受講が完了しました。');
+            }
+            return back()->with('error', '受講完了処理に失敗しました。');
+        } catch (\Exception $e) {
+            return back()->with('error', 'エラーが発生しました: ' . $e->getMessage());
+        }
     }
 }

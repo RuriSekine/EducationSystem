@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Curriculum;
 use App\Models\CurriculumProgress;
 use Illuminate\Support\Facades\Auth;
@@ -11,24 +10,39 @@ use App\Models\Grade;
 
 class ProgressController extends Controller
 {
+    /**
+     * 授業進捗画面を表示
+     */
     public function index() // カリキュラムIDを受け取る
     {
         $user = Auth::user();
-        
-        // ユーザーの学年を取得
         $currentGrade = Grade::find($user->grade_id);
-
-        // 全ての学年を取得（小1〜高3）
         $grades = Grade::orderBy('id')->get();
-
-        // ユーザーの進捗情報を取得
         $progresses = CurriculumProgress::where('users_id', $user->id)->pluck('clear_flg', 'curriculums_id');
-
-        // カリキュラムを学年ごとに取得し、進捗情報を追加
         $curriculums = Curriculum::with('grade')->get();
-        $groupedCurriculums = $curriculums->groupBy('grade.name');
-
-        return view('user.curriculum_progress', compact('user','currentGrade' ,'grades', 'groupedCurriculums', 'progresses'));
-    }
+        
+        // 各カリキュラムに対して進捗と有効/無効を計算
+        $curriculumsWithProgress = $curriculums->map(function ($curriculum) use ($progresses, $user) {
+            $isCompleted = $progresses[$curriculum->id] ?? false;
+            $isDisabled = $curriculum->grade_id > $user->grade_id; // 現在の学年以上のカリキュラムは非活性
+    
+            return [
+                'curriculum' => $curriculum,
+                'isCompleted' => $isCompleted,
+                'isDisabled' => $isDisabled,
+            ];
+        });
+    
+        // 学年ごとに3列ごとに分割
+        $gradeChunks = $grades->take(12)->chunk(3);
+    
+        return view('user.curriculum_progress', compact(
+            'user', 
+            'currentGrade', 
+            'gradeChunks', 
+            'curriculumsWithProgress', 
+            'progresses'
+        ));
+    }   
 }
 ?>

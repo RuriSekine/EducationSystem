@@ -12,23 +12,7 @@
 
     <!-- 動画表示 -->
     <div class="mb-4 d-flex justify-content-center">
-        @if ($curriculum->video_url)
-            <?php
-                $videoUrl = $curriculum->video_url;
-    
-                // YouTube用の埋め込みURLに変換
-                if (strpos($videoUrl, 'youtube.com/watch?v=') !== false) {
-                    $videoId = explode('v=', $videoUrl)[1];
-                    $videoUrl = "https://www.youtube.com/embed/" . $videoId;
-                }
-    
-                // ニコニコ動画用の埋め込みURLに変換
-                if (strpos($videoUrl, 'nicovideo.jp/watch/') !== false) {
-                    $videoId = basename(parse_url($videoUrl, PHP_URL_PATH));
-                    $videoUrl = "https://embed.nicovideo.jp/watch/" . $videoId;
-                }
-            ?>
-    
+        @if ($videoUrl)
             <div class="embed-responsive embed-responsive-16by9" style="width: 100%; max-width: 1000px;">
                 <iframe 
                     class="embed-responsive-item" 
