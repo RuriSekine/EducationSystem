@@ -28,5 +28,7 @@
         <button type="submit">
             {{ $article->exists ? '更新する' : '作成する' }}
         </button>
+        
+        <a href="{{ route('admin.articles.index') }}" style="margin-left: 10px;">戻る</a>
     </form>
 @endsection

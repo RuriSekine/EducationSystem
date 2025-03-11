@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container">
+    <a href="{{ route('admin.curriculum.create') }}" class="btn btn-secondary">授業設定画面</a>
     <h1>お知らせ一覧</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
     <!-- 新規追加ボタン -->
     <a href="{{ route('admin.article.edit', ['id' => null]) }}" class="btn btn-primary mb-3">新規お知らせ追加</a>
 

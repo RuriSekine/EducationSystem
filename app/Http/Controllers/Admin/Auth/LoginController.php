@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         // 認証処理
         if (Auth::guard('admin')->attempt($credentials)) {
-            return redirect()->route('admin.curriculum.create')->with('success', 'ログインしました！');
+            return redirect()->route('admin.articles.index')->with('success', 'ログインしました！');
         }
 
         return back()->withErrors([

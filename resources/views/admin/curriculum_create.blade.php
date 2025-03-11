@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <a href="{{ route('admin.articles.index') }}" style="margin-left: 10px;">戻る</a>
     <h1>授業動画の追加</h1>
 
     @if(session('success'))
