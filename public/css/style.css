@@ -1,0 +1,51 @@
+/* テーブル全体 */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+/* テーブルの見出し */
+thead {
+    background-color: #6a9eaf; /* 穏やかな青 */
+    color: white;
+}
+
+th {
+    font-size: 1.1rem;
+    padding: 10px;
+    text-align: center;
+}
+
+/* テーブルデータ */
+td {
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* リンクのボタン */
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+/* 行の境界線 */
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+/* ゼロ余白で調整 */
+.container {
+    padding: 0 15px;
+}

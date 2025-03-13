@@ -2,61 +2,66 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    protected $fillable = ['name', 'name_kana', 'email', 'profile_image', 'password'];
 
     /**
-     * The attributes that are mass assignable.
+     * プロフィールの保存・更新 (DBトランザクション対応)
      *
-     * @var array<int, string>
+     * @param array $data
+     * @param User $user
+     * @return User
+     * @throws \Exception
      */
-    protected $fillable = [
-        'name',
-        'name_kana',
-        'email',
-        'password',
-        'profile_image',
-        'grade_id'
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function classesClearChecks()
+    public static function updateProfile(array $data, User $user): User
     {
-        return $this->hasMany(ClassesClearCheck::class);//1対多
+        return DB::transaction(function () use ($data, $user) {
+            $user->fill([
+                'name' => $data['name'],
+                'name_kana' => $data['name_kana'],
+                'email' => $data['email'],
+            ]);
+
+            // プロフィール画像の処理
+            if (isset($data['profile_image'])) {
+                if ($user->profile_image) {
+                    Storage::disk('public')->delete('profile_images/' . $user->profile_image);
+                }
+                $file = $data['profile_image'];
+                $fileName = time() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/profile_images', $fileName);
+                $user->profile_image = $fileName;
+            }
+
+            $user->save();
+
+            return $user;
+        });
     }
 
-    public function grade()
+    /**
+     * パスワードの変更 (DBトランザクション対応)
+     *
+     * @param string $currentPassword
+     * @param string $newPassword
+     * @param User $user
+     * @throws \Exception
+     */
+    public static function updatePassword(string $currentPassword, string $newPassword, User $user): void
     {
-        return $this->belongsTo(Grade::class);//多対1
-    }
+        DB::transaction(function () use ($currentPassword, $newPassword, $user) {
+            if (!Hash::check($currentPassword, $user->password)) {
+                throw new \Exception('現在のパスワードが正しくありません。');
+            }
 
-    public function curriculumProgress()
-    {
-        return $this->hasMany(curriculumProgress::class);//1対多
+            $user->password = Hash::make($newPassword);
+            $user->save();
+        });
     }
 }
