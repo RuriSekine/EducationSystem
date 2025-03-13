@@ -18,4 +18,14 @@ class PasswordRequest extends FormRequest
             'new_password' => 'required|min:8|confirmed',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'current_password.required' => '入力必須項目です',
+            'new_password.required' => '入力必須項目です',
+            'new_password.min' => 'パスワードは8文字以上で入力してください',
+            'new_password.confirmed' => '新しいパスワードが一致しません',
+        ];
+    }
 }

@@ -22,4 +22,15 @@ class ProfileRequest extends FormRequest
             'profile_image' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'ユーザーネームは入力必須です。',
+            'name_kana.required' => 'カナは入力必須です。',
+            'name_kana.regex' => 'カナはカタカナで入力してください。',
+            'email.required' => 'メールアドレスは入力必須です。',
+            'email.email' => 'メールアドレス形式で入力してください。',
+        ];
+    }
 }

@@ -16,7 +16,7 @@
 
         <div>
             <label for="content">内容</label>
-            <textarea name="article_contents" id="article_contents" required>{{ old('article_contents', $article->content) }}</textarea>
+            <textarea name="article_contents" id="article_contents" rows="8" style="width: 50%; height: 200px;" required>{{ old('article_contents', $article->article_contents) }}</textarea>
         </div>
 
         <div>

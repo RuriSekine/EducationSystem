@@ -47,7 +47,7 @@ label {
 /* 入力フィールド */
 .form-control {
   background-color: #fbfffe;
-  color: #fff;
+  color: #000;
   border-radius: 8px;
   padding: 10px;
   border: none;
