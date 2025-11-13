@@ -39,15 +39,6 @@ class RegisterController extends Controller
         return view('admin.auth.register');
     }
 
-    public function register(Request $request) {
-        //データのバリデーション
-        $this->validator($request->all())->validate();
-        //バリデーションが通ったらデータベースに作成
-        $this->create($request->all());
-        //コメント表示
-        return view('admin.auth.register_success');
-    }
-
     /**
      * Create a new controller instance.
      * ログインしていないユーザーのみに制限されることを保証
@@ -70,22 +61,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'max:255', 'unique:admins'],
-            'kana_name' => ['required', 'max:255', 'unique:admins', 'regex:/^[ｧ-ﾝﾞﾟァ-ヴー]+$/u'],
-            'email' => ['required', 'email', 'max:255', 'unique:admins'],
-            'password' => ['required', 'min:8', 'max:255', 'confirmed','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!$%^&*()_+={}\[\]:;"\'<>,.?/]).+$/'],
-            'password_confirmation' => ['confirmed'],
+            'name' => 'required|max:255|unique:admins',
+            'kana' => 'required|max:255|unique:admins|regex:/^[ｧ-ﾝﾞﾟァ-ヴー]+$/u',
+            'email' => 'required|max:255|unique:admins',
+            'password' => 'required|min:8|max:255|confirmed',
+            'password_confirmation' => 'required|min:8|max:255',
         ], [
-            'name.required' => 'ユーザーネームが入力されていません。',
-            'kana_name.required' => 'カナが入力されていません。',
-            'email.required' => 'メールアドレスが入力されていません。',
-            'password.required' => 'パスワードが入力されていません。',
-            'password.confirmed' => 'パスワードが一致しません。',
+            'name.required' => 'ユーザーネームを入力してください。',
+            'name.unique' => 'そのユーザーネームは既に登録されています。',
+            'kana.required' => 'カナを入力してください。',
+            'kana.unique' => 'そのユーザーネームは既に登録されています。',
+            'kana.regex' => 'カナを入力してください。',
+            'email.required' => 'メールアドレスを入力してください。',
+            'email.unique' => 'そのメールアドレスは既に登録されています。',
+            'password.required' => 'パスワードを入力してください。',
             'password.min' => 'パスワードは8文字以上である必要があります。',
-            'password_confirmation.required' => 'パスワード確認が入力されていません。'
+            'password.confirmed' => 'パスワードが一致しません。',
+            'password_confirmation.required' => 'パスワード確認が入力されていません。',
+            'password_confirmation.min' => 'パスワードは8文字以上である必要があります。',
         ]);
     }
 
@@ -99,9 +96,10 @@ class RegisterController extends Controller
     {
         return Admin::create([
             'name' => $data['name'],
-            'kana' => $data['kana_name'],
+            'kana' => $data['kana'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
     }
+
 }

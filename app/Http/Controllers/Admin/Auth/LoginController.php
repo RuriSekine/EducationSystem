@@ -24,7 +24,13 @@ class LoginController extends Controller
     // use AuthenticatesUsers;
     use AuthenticatesUsers {
         logout as performLogout;
-    }                              
+    }
+    
+    
+    protected function guard()//管理者用ログイン（認証）適用。
+    {
+        return Auth::guard('admin');
+    }
 
     /**
      * Where to redirect users after login.ログイン後にリダイレクトする場所
@@ -40,21 +46,22 @@ class LoginController extends Controller
         return view('admin.auth.login');
     }
 
-    public function login(Request $request) {
+    public function login(Request $request) { 
         
         $credentials = $request->only('email', 'password');
 
         $request->validate([
-            'email' => 'required|max:255',
-            'password' => 'required|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!$%^&*()_+={}\[\]:;"\'<>,.?/]).+$/',
+            'email' => 'required|max:255|email',
+            'password' => 'required|min:8|max:255',
         ], [
             'email.required' => 'メールアドレスを入力してください。',
+            'email.email' => '有効なメールアドレスを入力してください。',
             'password.required' => 'パスワードを入力してください。',
             'password.min' => 'パスワードは8文字以上である必要があります。',
         ]);
 
         //ログイン処理
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
         // 成功したらログインコメント表示
             $request->session()->flash('status','ログイン成功');
@@ -73,13 +80,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('performLogout');
+        $this->middleware('guest:admin')->except('logout');
         //ログアウトは除外
-    }
-
-    protected function guard()//管理者用ログイン（認証）適用。
-    {
-        return Auth::guard('admin');
     }
 
     //ログアウト処理

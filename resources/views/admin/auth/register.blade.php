@@ -1,11 +1,10 @@
-@extends('layouts.admin')
+@extends('admin.layouts.app')
 
 @section('title', '管理者ユーザー新規登録')
 
     @vite('resources/sass/app.scss')
 @yield('additional-styles')
     <link rel="stylesheet" href="{{ asset('/css/admin_register.css') }}">
-    
 
 @section('right-item')
     @guest    
@@ -27,16 +26,16 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('新規管理ユーザー登録') }}</div>
-
+                
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.register') }}">
                         @csrf
 
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('ユーザーネーム') }}</label>
-
+                            
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -47,12 +46,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="kana_name" class="col-md-4 col-form-label text-md-end">{{ __('カナ') }}</label>
+                            <label for="kana" class="col-md-4 col-form-label text-md-end">{{ __('カナ') }}</label>
 
                             <div class="col-md-6">
-                                <input id="kana_name" type="text" class="form-control @error('kana_name') is-invalid @enderror" name="kana_name" value="{{ old('kana_name') }}" required autocomplete="off">
+                                <input id="kana" type="text" class="form-control @error('kana') is-invalid @enderror" name="kana" value="{{ old('kana') }}" autocomplete="off">
 
-                                @error('kana_name')
+                                @error('kana')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -63,7 +62,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('メールアドレス') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -77,7 +76,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('パスワード') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -91,7 +90,13 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('パスワード確認') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" autocomplete="new-password">
+
+                                @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror    
                             </div>
                         </div>
 

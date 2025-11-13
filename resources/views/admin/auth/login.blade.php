@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.app')
 
 @section('title', '管理者用ログイン画面')
 
@@ -27,6 +27,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('管理画面ログイン') }}</div>
+
+                @if($errors->has('login_error'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('login_error') }}
+                    </div>
+                @endif
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.login') }}">
