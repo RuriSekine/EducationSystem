@@ -22,27 +22,33 @@ class BannerController extends Controller
 
 
     //登録ボタンを押したとき
-    public function showBannerUpdate(Request $request) { 
+    public function BannerUpdate(Request $request) { 
+
+        //バリデーションのルール
+        $request->validate([
+            'new_images'   => 'required|array',
+            'new_images.*' => 'required|file|mimes:jpeg,png|max:5242880',
+            'images.*' => 'file|mimes:jpeg,png|max:5242880',
+            ], [
+            'new_images.required'   => 'ファイルを選択してください',
+            'new_images.*.required' => 'ファイルを選択してください',
+            'new_images.*.mimes'    => 'PNGまたはJPEG形式のファイルを選択してください',
+            'new_images.*.max'      => 'ファイルサイズは5MB以内にしてください',
+            'images.*.mimes'        => 'PNGまたはJPEG形式のファイルを選択してください',
+            'images.*.max'          => 'ファイルサイズは5MB以内にしてください',
+            ]);
+
         //すべてが成功したときに
         DB::transaction(function () use ($request) {
+
+            //既存バナーを削除したとき
+            if ($request->has('delete_ids')) {
+            Banner::whereIn('id', $request->delete_ids)->delete();
+            }
             $storedFiles = []; // 保存済みファイルを追跡
 
             try {
-                //バリデーションのルール
-                $request->validate([
-                    'new_images.*' => 'required|file|mimes:jpeg,png,jpg,gif|max:10485760|min:1048576',
-                    'images.*' => 'file|mimes:jpeg,png,jpg,gif|max:10485760|min:1048576',
-                ], [
-                    'new_images.*.required' => 'ファイルを選択してください。',
-                    'new_images.*.mimes'    => '所定の形式ではありません',
-                    'new_images.*.max'      => 'ファイルが大きすぎます',
-                    'new_images.*.min'      => 'ファイルが小さすぎます',
-                    'images.*.mimes'        => '所定の形式ではありません',
-                    'images.*.max'          => 'ファイルが大きすぎます',
-                    'images.*.min'          => 'ファイルが小さすぎます',
-                ]);
-
-                //バリデーションをクリアしたら新規追加処理
+                //新規追加処理
                 if ($request->hasFile('new_images')) {
                     foreach ($request->file('new_images') as $file) {
                         //ファイル名取得
@@ -59,7 +65,7 @@ class BannerController extends Controller
                 }
                 //バリデーションをクリアしたら更新
                 if ($request->hasFile('images')) {
-                    foreach ($request->file('images') as $file) {
+                    foreach ($request->file('images') as $id => $file) {
                         //ファイル名取得
                         $originalName = $file->getClientOriginalName();
                         //保存用パスを指定
@@ -72,7 +78,7 @@ class BannerController extends Controller
                             //元画像取得
                             $oldImage = $banner->image;
                             //バナー画像を更新
-                            $banner::update(['image' => $path]);
+                            $banner->update(['image' => $path]);
                             //更新できたら元画像を削除
                             if ($oldImage && Storage::disk('public')->exists('banner/' . basename($oldImage))) {Storage::disk('public')->delete('banner/' . basename($oldImage));
                                 }
@@ -86,8 +92,12 @@ class BannerController extends Controller
                         Storage::disk('public')->delete('banner/' . basename($filePath));
                         }
                     } 
-                throw $e; //トランザクションのロールバック
+                return redirect()->route('admin.show.banner.edit')
+                    ->with('error', '登録に失敗しました: ' . $e->getMessage());
             }
         });
+        // 正常に登録できたら元の編集画面に戻る
+        return redirect()->route('admin.show.banner.edit')
+        ->with('success', '登録が完了しました');
     }
 }

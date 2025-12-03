@@ -50,7 +50,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     //バナー管理
         Route::get('/banner_edit', [BannerController::class, 'showBannerEdit'])->name('show.banner.edit');
     //バナー登録
-        Route::post('/banner_update', [BannerController::class, 'showBannerUpdate'])->name('show.banner.update');
+        Route::post('/banner_update', [BannerController::class, 'BannerUpdate'])->name('banner.update');
     //仮
         Route::get('/curriculum_list', function() {
             return '授業管理ページ作成中';

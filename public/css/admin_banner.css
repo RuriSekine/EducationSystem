@@ -55,29 +55,41 @@ body {
     margin-left: 30px;
 }
 
+.file-label {
+    padding-right: 45px;
+    padding-left: 30px;
+}
 .fa-solid{
     font-size: 30px !important;
 }
 
 .add-icon {
-    display: flex;
-    align-items: center;
+    width: 50%;
+    text-align: center;
     padding-top: 50px;
-    margin-left: 150px; /* バナー行と揃える */
+    margin: 0;
+}
+
+.banner-list {
+    display: block !important;
+    flex-wrap: wrap !important;       /* 複数行対応 */
+    gap: 20px;             /* 横・縦の間隔 */
 }
 
 .banner-list .banner-image {
-    display: flex;
-    padding-left: 200px;
-    padding-top: 20px;
-    justify-content: flex-start !important;
-    align-items: center !important;  /* 縦方向中央揃え（お好み） */
-    gap: 25px !important;            /* inputとアイコンの間の余白 */
-    margin: 10px 0 !important;
+    text-align: center !important;
+    margin: 20px !important;
+    padding: 0 !important;
 }
 
 .file-btn {
-    border: 1px solid #ccc !important;
+    background-color: transparent;
+    border: 1px solid #080808 !important;
+    margin: 0px 20px;
+    padding: 20px 20px;
+    font-size: 20px;
+    font-weight: bold;
+
 }
 
 .info-row.btn-class .btn {

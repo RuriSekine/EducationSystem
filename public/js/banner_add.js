@@ -8,7 +8,7 @@ function addBanner() {
 
     newBanner.innerHTML = `
         <span class="file-label">選択されていません</span>
-        <img class="preview" style="display:none; max-width:200px; max-height:200px; margin-left:10px;">
+        <img class="preview" style="display:none; max-width:200px; max-height:200px;">
         <button type="button" class="file-btn">ファイルを選択</button>
         <input type="file" name="new_images[]" style="display:none;" onchange="updateFileLabel(this)">
         <i class="fa-solid fa-circle-minus" style="color: #ff0000;" onclick="removeNewBanner(this)"></i>
@@ -50,3 +50,4 @@ function updateFileLabel(input){
 function removeNewBanner(icon){
     icon.parentElement.remove();
 }
+
