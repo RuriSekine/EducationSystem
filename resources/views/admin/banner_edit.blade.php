@@ -2,11 +2,9 @@
 
 @section('title', 'バナー管理')
 
-    @vite('resources/sass/app.scss')
 @yield('additional-styles')
     <link rel="stylesheet" href="{{ asset('/css/admin_banner.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
 
 @section('left-item')
     <li class="nav-item">

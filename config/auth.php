@@ -45,6 +45,12 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        // これ追加
+        'user' => [
+        'driver' => 'session',
+        'provider' => 'users',
+        ],
     ],
 
 
@@ -67,7 +73,7 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'users' => [                         //ユーザー側
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],

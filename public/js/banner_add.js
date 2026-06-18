@@ -45,6 +45,25 @@ function updateFileLabel(input){
         preview.src = "";
     }
 }
+    // 登録時チェック（new_images が追加されているのに未選択なら止める）
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('banner-form');
+            if (!form) return;
+
+            form.addEventListener('submit', function (e) {
+        const inputs = form.querySelectorAll('input[name="new_images[]"]');
+
+            for (let input of inputs) {
+              // 行はあるがファイル未選択
+                if (!input.files || input.files.length === 0) {
+                    alert('ファイルを選択してください');
+                    e.preventDefault();
+                    return;
+                }
+            }
+        });
+    });
+
 
 // 削除アイコンで行を削除
 function removeNewBanner(icon){

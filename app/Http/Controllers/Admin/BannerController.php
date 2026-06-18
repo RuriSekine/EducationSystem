@@ -26,12 +26,12 @@ class BannerController extends Controller
 
         //バリデーションのルール
         $request->validate([
-            'new_images'   => 'required|array',
-            'new_images.*' => 'required|file|mimes:jpeg,png|max:5242880',
+            'new_images'   => 'nullable|array',
+            'new_images.*' => 'nullable|file|mimes:jpeg,png|max:5242880',
+            'images'       => 'nullable|array',
             'images.*' => 'file|mimes:jpeg,png|max:5242880',
             ], [
-            'new_images.required'   => 'ファイルを選択してください',
-            'new_images.*.required' => 'ファイルを選択してください',
+            'new_images.*.file'  => 'ファイルを選択してください',
             'new_images.*.mimes'    => 'PNGまたはJPEG形式のファイルを選択してください',
             'new_images.*.max'      => 'ファイルサイズは5MB以内にしてください',
             'images.*.mimes'        => 'PNGまたはJPEG形式のファイルを選択してください',
