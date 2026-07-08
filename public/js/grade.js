@@ -1,3 +1,4 @@
+console.log("grade.js 読み込み確認");
 document.addEventListener('DOMContentLoaded', function () { //HTMLが全部読み込まれてから処理
     
     const gradeElement = document.getElementById('grade');//HTML取得 箱に
@@ -18,18 +19,28 @@ document.addEventListener('DOMContentLoaded', function () { //HTMLが全部読�
         gradeElement.textContent = currentGrade;
 
         // ボタンと同じ見た目にする
-        gradeElement.className = 'grade-btn ' + getGradeClass(currentGrade);
+        gradeElement.className = 'current-grade ' + getGradeClass(currentGrade);
+
     }
      // 初期表示
     updateGrade();
 
+    const firstBtn = document.querySelector('[data-grade-id]');//最初のボタンを取得
+    if (firstBtn) {
+    loadCurriculums(firstBtn.dataset.gradeId);
+    }
+
+
     //学年ボタンのクリック処理
-    document.querySelectorAll('.grade-btn').forEach(btn => {
+    document.querySelectorAll('[data-grade-id]').forEach(btn => {
         btn.addEventListener('click', function () {
             // 押したボタンの学年を取得
+            console.log('gradeId=', this.dataset.gradeId);
             currentGrade = this.textContent;
             // 表示更新
             updateGrade();
+            
+            loadCurriculums(this.dataset.gradeId);//カリキュラムの読み込み
         });
     });
 });

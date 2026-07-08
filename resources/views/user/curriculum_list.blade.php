@@ -93,30 +93,12 @@
         </div>
 
         <!--授業一覧ページ-->
-        <div class="curriculums-menu">
-            @foreach ($curriculums as $curriculum)
-                    <div class="curriculum-item" data-grade-id="{{ $curriculum->grade_id}}">
-                        <img src="{{ asset($curriculum->thumbnail) }}" class="curriculum-thumbnail" alt="サムネイル画像" style="width: 180px">
-                        <p class="curriculum-title">
-                        {{ $curriculum->title}}
-                        </p>
-                        @if ($curriculum->alway_delivery_flg == 1)
-                            <p class="curriculum-always-delivery">常時公開</p>
-                        @else
-                            @foreach ($curriculum->deliveryTimes as $delivery_time)
-                                <p class="curriculum-delivery-time">
-                                    {{ \Carbon\Carbon::parse($delivery_time->delivery_from)->format('n月j日 H:i') }}
-                                    ～
-                                    {{ \Carbon\Carbon::parse($delivery_time->delivery_to)->format('H:i') }}
-                                </p>
-                            @endforeach
-                        @endif
-                    </div>
-            @endforeach
+        <div id="curriculum-list" class="curriculums-menu"><!-- JavaScriptで授業を表示-->
         </div>
     </div>
 @endsection
 @section('additional-scripts')
-    <script src="{{ asset('js/schedule.js') }}"></script>
     <script src="{{ asset('js/grade.js') }}"></script>
+    <script src="{{ asset('js/schedule.js') }}"></script>
+    <script src="{{ asset('js/curriculum.js') }}"></script>
 @endsection

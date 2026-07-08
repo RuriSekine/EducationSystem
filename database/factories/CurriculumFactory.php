@@ -23,7 +23,7 @@ class CurriculumFactory extends Factory
                 'title' => '授業' . $this->faker->randomNumber(1),// ランダムな授業タイトルを生成
                 'thumbnail' => 'storage/images/curriculums/curriculum.jpg',  
                 // ランダムな画像URLを生成
-                'description' => $this->faker->realText(100), // 日本語説明
+                'description' => $this->faker->realText(10), // 日本語説明
                 'video_url' => $this->faker->url(),  // ランダムな動画URLを生成
                 'alway_delivery_flg' => $this->faker->boolean(),  // ランダムな配送フラグを生成
                 'grade_id' => $this->faker->randomElement($gradeIds),  // 選択した学年のIDを設定

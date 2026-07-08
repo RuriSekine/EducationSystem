@@ -18,7 +18,7 @@ class DeliveryTimesTableSeeder extends Seeder
         $curriculums = Curriculum::all();
 
         foreach ($curriculums as $curriculum) {
-            DeliveryTime::factory()->count(2)->create([
+            DeliveryTime::factory()->count(1)->create([
                 'curriculums_id' => $curriculum->id,
             ]);
         }

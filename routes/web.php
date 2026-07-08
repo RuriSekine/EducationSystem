@@ -66,19 +66,9 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     });
 });
 
-
-
 //ユーザー用
 //仮
 Route::prefix('user')->namespace('User\Auth')->name('user.')->group(function () {
-    //ログインフォーム表示
-    Route::get('/login',  function() {
-            return 'ログイン画面ページ作成中';
-        })->name('show.login');
-    //ログイン処理
-    Route::post('/login', function() {
-            return 'ログイン処理';
-        })->name('login');
     //ユーザーをログアウト
     Route::post('/logout',function() {
             return 'ログアウト画面ページ作成中';
@@ -103,10 +93,12 @@ Route::get('/test-login', function () {
 });
 
 Route::prefix('user')->namespace('User')->name('user.')->group(function () {
-    //未ログインユーザーが下記ルートにアクセスしようとすると自動的にログインページにリダイレクト
+    //未ログイン管理者が下記ルートにアクセスしようとすると自動的にログインページにリダイレクト
     Route::middleware('auth:user')->group(function () {
-    //時間割
+    //授業一覧画面
         Route::get('/curriculum_list', [CurriculumController::class, 'showCurriculumList'])->name('show.curriculum');
+    //カリキュラムの取得
+    Route::get('/api/curriculums', [CurriculumController::class, 'getCurriculums']);
     //仮    
     //トップ画面
         Route::get('/top', function() {
