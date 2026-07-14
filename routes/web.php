@@ -44,6 +44,8 @@ Route::prefix('admin')->namespace('Admin\Auth')->name('admin.')->group(function 
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('show.register');
     //新規登録処理
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
+    //新規登録が成功時
+    Route::get('/register_success', [RegisterController::class, 'showRegisterSuccess'])->name('show.register.success');
 });
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {

@@ -49,13 +49,13 @@
             @endif
 
 @if (session('success'))
-    <div class="alert alert-success">
+    <div id="success-message" class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
 
 @if (session('error'))
-    <div class="alert alert-danger">
+    <div id="error-message" class="alert alert-danger">
         {{ session('error') }}
     </div>
 @endif
@@ -63,7 +63,8 @@
                     @foreach ($banners as $banner)
                         <div class="banner-image" id="banner-id{{ $banner->id}}">
                             @if ($banner->image && File::exists(storage_path('app/public/images/banner/' . basename($banner->image))))
-                                <img src="{{ asset('storage/images/banner/' . basename($banner->image)) }}" alt="バナー画像" style="width: 200px">
+                                <span class="file-label" style="display:none;">選択されていません</span>
+                                <img class="preview" src="{{ asset('storage/images/banner/' . basename($banner->image)) }}" alt="バナー画像" style="width: 200px">
                                 <!--ファイルを選択-->
                                 <button type="button" class="file-btn" onclick="document.getElementById('image_{{ $banner->id }}').click()">ファイルを選択</button>
                                 <input type="file" name="images[{{ $banner->id }}]" id="image_{{ $banner->id }}" style="display:none;" onchange="updateFileLabel(this)">

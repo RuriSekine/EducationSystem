@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Http\Requests\Auth\LoginFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth; 
@@ -46,19 +47,9 @@ class LoginController extends Controller
         return view('admin.auth.login');
     }
 
-    public function login(Request $request) { 
+    public function login(LoginFormRequest $request) { 
         
         $credentials = $request->only('email', 'password');
-
-        $request->validate([
-            'email' => 'required|max:255|email',
-            'password' => 'required|min:8|max:255',
-        ], [
-            'email.required' => 'メールアドレスを入力してください。',
-            'email.email' => '有効なメールアドレスを入力してください。',
-            'password.required' => 'パスワードを入力してください。',
-            'password.min' => 'パスワードは8文字以上である必要があります。',
-        ]);
 
         //ログイン処理
         if (Auth::guard('admin')->attempt($credentials)) {

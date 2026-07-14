@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Auth\BannerRequest;
 use Illuminate\Support\Facades\Storage; 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -22,22 +22,8 @@ class BannerController extends Controller
 
 
     //登録ボタンを押したとき
-    public function BannerUpdate(Request $request) { 
-
-        //バリデーションのルール
-        $request->validate([
-            'new_images'   => 'nullable|array',
-            'new_images.*' => 'nullable|file|mimes:jpeg,png|max:5242880',
-            'images'       => 'nullable|array',
-            'images.*' => 'file|mimes:jpeg,png|max:5242880',
-            ], [
-            'new_images.*.file'  => 'ファイルを選択してください',
-            'new_images.*.mimes'    => 'PNGまたはJPEG形式のファイルを選択してください',
-            'new_images.*.max'      => 'ファイルサイズは5MB以内にしてください',
-            'images.*.mimes'        => 'PNGまたはJPEG形式のファイルを選択してください',
-            'images.*.max'          => 'ファイルサイズは5MB以内にしてください',
-            ]);
-
+    public function BannerUpdate(BannerRequest $request) { 
+        
         //すべてが成功したときに
         DB::transaction(function () use ($request) {
 

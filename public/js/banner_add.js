@@ -31,18 +31,30 @@ function updateFileLabel(input){
 
     if(input.files && input.files.length > 0){
         const file = input.files[0];
-        label.style.display = "none";
-
-        const reader = new FileReader();
-        reader.onload = function(e){
-            preview.src = e.target.result;
-            preview.style.display = "inline-block";
+        if(label){//
+            label.style.display = "none";
         }
-        reader.readAsDataURL(file);
+
+        if(preview){
+            const reader = new FileReader();
+
+            reader.onload = function(e){
+                preview.src = e.target.result;
+                preview.style.display = "inline-block";
+            }
+
+            reader.readAsDataURL(file);
+        }
+
     } else {
-        label.style.display = "inline";
-        preview.style.display = "none";
-        preview.src = "";
+        if(label){
+            label.style.display = "inline";
+        }
+
+        if(preview){
+            preview.style.display = "none";
+            preview.src = "";
+        }
     }
 }
     // 登録時チェック（new_images が追加されているのに未選択なら止める）
@@ -70,3 +82,20 @@ function removeNewBanner(icon){
     icon.parentElement.remove();
 }
 
+//3秒後に成功メッセージを非表示にする
+document.addEventListener("DOMContentLoaded", function() {
+    const successMessage = document.getElementById("success-message");
+    const errorMessage = document.getElementById("error-message");
+
+
+    if (successMessage) {
+        setTimeout(function () {
+            successMessage.style.display = "none";
+        }, 3000);
+    }
+    if (errorMessage) {
+        setTimeout(function () {
+            errorMessage.style.display = "none";
+        }, 3000);
+    }
+});
