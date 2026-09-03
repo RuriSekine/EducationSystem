@@ -8,7 +8,7 @@
 
 @section('left-item')
     <li class="nav-item">
-        <a class="nav-link left-link" href="{{ route('user.show.curriculum') }}">{{ __('時間管理') }}</a>
+        <a class="nav-link left-link" href="{{ route('user.show.curriculum') }}">{{ __('時間割') }}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link left-link" href="{{ route('user.show.progress') }}">{{ __('授業進捗') }}</a>

@@ -25,8 +25,8 @@ class RegisterFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:admins',
-            'kana' => 'required|max:255|unique:admins|regex:/^[ｧ-ﾝﾞﾟァ-ヴー]+$/u',
+            'name' => 'required|max:255|unique:admins|regex:/^(?!.*[ｦ-ﾟ]).+$/u',
+            'kana' => 'required|max:255|unique:admins|regex:/^[ァ-ヶー]+$/u',
             'email' => 'required|max:255|unique:admins',
             'password' => 'required|min:8|max:255|confirmed',
             'password_confirmation' => 'required|min:8|max:255',
@@ -38,9 +38,10 @@ class RegisterFormRequest extends FormRequest
     return [
         'name.required' => 'ユーザーネームを入力してください。',
             'name.unique' => 'そのユーザーネームは既に登録されています。',
+            'name.regex' => '全角で入力してください。',
             'kana.required' => 'カナを入力してください。',
-            'kana.unique' => 'そのユーザーネームは既に登録されています。',
-            'kana.regex' => 'カナを入力してください。',
+            'kana.unique' => 'そのカナは既に登録されています。',
+            'kana.regex' => '全角カタカナで入力してください。',
             'email.required' => 'メールアドレスを入力してください。',
             'email.unique' => 'そのメールアドレスは既に登録されています。',
             'password.required' => 'パスワードを入力してください。',

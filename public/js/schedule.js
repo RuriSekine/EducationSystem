@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', function () { //HTMLが全部読�
         //HTMLに表示
         document.getElementById('currentMonth').textContent =
             `${year}年${month}月スケジュール`;
+        
+        // 現在の年月を保存
+        window.currentYear = year;
+        window.currentMonth = month;
     }
 
     //初期(ページを開いたときに表示)
@@ -18,11 +22,28 @@ document.addEventListener('DOMContentLoaded', function () { //HTMLが全部読�
     document.getElementById('lastMonth').addEventListener('click', function () {
         currentDate.setMonth(currentDate.getMonth() - 1);
         updateMonth();
+         // カリキュラムを再取得
+        if (window.currentGradeId) {
+            loadCurriculums(
+                window.currentGradeId,
+                window.currentYear,
+                window.currentMonth
+                );
+            }
     });
 
     // 次月
     document.getElementById('nextMonth').addEventListener('click', function () {
         currentDate.setMonth(currentDate.getMonth() + 1);
         updateMonth();
+
+        // カリキュラムを再取得
+        if (window.currentGradeId) {
+            loadCurriculums(
+                window.currentGradeId,
+                window.currentYear,
+                window.currentMonth
+            );
+        }
     });
 });

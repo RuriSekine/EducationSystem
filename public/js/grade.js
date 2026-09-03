@@ -26,9 +26,15 @@ document.addEventListener('DOMContentLoaded', function () { //HTMLが全部読�
     updateGrade();
 
     const firstBtn = document.querySelector('[data-grade-id]');//最初のボタンを取得
-    if (firstBtn) {
-    loadCurriculums(firstBtn.dataset.gradeId);
-    }
+        if (firstBtn) {
+            window.currentGradeId = firstBtn.dataset.gradeId;
+            
+            loadCurriculums(
+            window.currentGradeId,
+            window.currentYear,
+            window.currentMonth
+            );
+        }
 
 
     //学年ボタンのクリック処理
@@ -40,7 +46,15 @@ document.addEventListener('DOMContentLoaded', function () { //HTMLが全部読�
             // 表示更新
             updateGrade();
             
-            loadCurriculums(this.dataset.gradeId);//カリキュラムの読み込み
+            // 現在の学年IDを保存
+            window.currentGradeId = this.dataset.gradeId;
+
+            // カリキュラムの読み込み
+            loadCurriculums(
+                window.currentGradeId,
+                window.currentYear,
+                window.currentMonth
+            );
         });
     });
 });

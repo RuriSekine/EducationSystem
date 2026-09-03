@@ -22,13 +22,13 @@ function formatTime(dateTime) {
     return `${hours}:${minutes}`;
 }
 
-window.loadCurriculums = function (gradeId) {
+window.loadCurriculums = function (gradeId, year, month) {
     //loadCurriculums という名前の処理を作って、windowでブラウザ全体使えるようにする
 
     const curriculumList = document.getElementById('curriculum-list');
     //カリキュラム一覧を表示する要素を取得
 
-    fetch(`/user/api/curriculums?grade_id=${gradeId}`)
+    fetch(`/user/api/curriculums?grade_id=${gradeId}&year=${year}&month=${month}`)
     //fetchで/api/curriculumsにアクセスして、gradeIdを送る(リクエスト)
     .then(response => response.json())
     //レスポンスをjson形式に変換する
