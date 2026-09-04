@@ -1,0 +1,102 @@
+body {
+    font-family: "ＭＳ Ｐゴシック","ＭＳ ゴシック",sans-serif !important;
+}
+
+.card {
+    border: none !important;
+}
+
+.navbar-expand-md {
+    padding: 0 !important;
+}
+
+.navbar {
+    background-color: aqua;
+}
+
+.navbar-nav {
+    font-size: 25px;
+    justify-content:space-between;
+    --bs-navbar-color: white !important;
+}
+
+.nav-link {
+    display: inline-block !important;
+}
+
+.nav-link.left-link {
+    background-color: grey;
+    border-radius: 10px;
+    padding: 5px 20px !important;
+    margin-left: 20px;
+}
+
+.nav-link.right-link {
+    font-size: 40px;
+    --bs-navbar-color: white !important;
+    margin-top: 10px;
+}
+
+.back-link {
+    font-size: 18px !important;
+    margin-left: 30px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.back-link:hover {
+  color: blue; /* クリック中の色 */
+}
+
+.tittle {
+    font-size: 30px !important;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.file-label {
+    padding-right: 45px;
+    padding-left: 30px;
+}
+.fa-solid{
+    font-size: 30px !important;
+}
+
+.add-icon {
+    width: 50%;
+    text-align: center;
+    padding-top: 50px;
+    margin: 0;
+}
+
+.banner-list {
+    display: block !important;
+    flex-wrap: wrap !important;       /* 複数行対応 */
+    gap: 20px;             /* 横・縦の間隔 */
+}
+
+.banner-list .banner-image {
+    text-align: center !important;
+    margin: 20px !important;
+    padding: 0 !important;
+}
+
+.file-btn {
+    background-color: transparent;
+    border: 1px solid #080808 !important;
+    margin: 0px 20px;
+    padding: 20px 20px;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.info-row.btn-class .btn {
+    display: flex;
+    align-items: center;
+    margin-left: 500px;
+    border-radius: 0 !important;
+    padding: 0px 80px !important;
+    margin-top: 100px;
+}

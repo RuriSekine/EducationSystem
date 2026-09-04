@@ -1,0 +1,122 @@
+body {
+    font-family: "ＭＳ Ｐゴシック","ＭＳ ゴシック",sans-serif !important;
+}
+
+.navbar-expand-md {
+    padding: 0 !important;
+    background: orange !important;
+    margin-bottom: 10px;
+}
+
+.navbar-nav {
+    font-size: 25px;
+    justify-content:space-between;
+    --bs-navbar-color: white !important;
+}
+
+.nav-link {
+    display: inline-block !important;
+}
+
+.nav-link.left-link {
+    background-color: rgb(16, 86, 11);
+    border-radius: 10px;
+    padding: 5px 20px !important;
+    margin-left: 20px;
+}
+
+.nav-link.right-link {
+    font-size: 40px;
+    --bs-navbar-color: white !important;
+    margin-top: 10px;
+}
+
+.back-link {
+    font-size: 22px !important;
+    margin-left: 30px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.back-link:hover {
+  color: blue; /* クリック中の色 */
+}
+
+.schedule-header{
+    margin-left: 150px;
+    margin-top: -30px; 
+}
+
+.curriculum-container{
+    display: flex !important;
+    align-items: flex-start !important;
+}
+
+.grade {
+    margin-left: 650px;
+    margin-top: -80px; 
+    margin-bottom: 30px;
+}
+
+.current-grade {
+    width: 200px !important;
+    padding: 10px !important;
+    border-radius: 20px !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    --bs-btn-color: white !important;
+}
+
+#lastMonth,
+#currentMonth,
+#nextMonth {
+    border: none !important;
+    background: transparent;
+    box-shadow: none !important;
+    font-size: 40px;
+}
+
+.grade-list{
+    list-style: none;
+}
+.btn {
+    margin-top: 20px;
+}
+
+.btn:hover {
+    color: white !important;
+}
+
+.grade-btn {
+    width: 200px !important;
+    padding: 10px !important;
+    border-radius: 20px !important;
+    text-align: center !important;
+    font-size: 20px !important;
+    --bs-btn-color: white !important;
+}
+
+.curriculums-menu {
+    flex: 1 !important;
+    display: flex !important;
+    gap: 60px !important;
+    margin-left: 80px !important;  
+    flex-wrap: wrap !important;
+}
+
+.curriculum-card {
+    padding: 20px !important;
+    border: 1px solid black !important;
+}
+
+.curriculum-title {
+    margin: 20px 0px !important;
+    font-weight: bold;
+}
+
+.curriculum-delivery-time {
+    margin-bottom: 5px !important;
+    font-weight: bold;
+    font-size: 18px;
+}

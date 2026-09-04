@@ -1,8 +1,14 @@
-// Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
-
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+/* カードのボーダー幅を無効にする */
+.card {
+    --bs-card-border-width: 0;
+    border-width: 0;
+}
